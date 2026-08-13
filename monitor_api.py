@@ -17,8 +17,8 @@ from urllib.error import HTTPError, URLError
 
 BASE_URL = "https://servicos.pf.gov.br/agenda-publico-rest/api"
 
-CODIGO_SOLICITACAO = "202512301318561835"
-DATA_NASCIMENTO = "2000-06-26"
+CODIGO_SOLICITACAO = "202511201800457713"
+DATA_NASCIMENTO = "2006-05-03"
 SISTEMA_ID = 1  # 1=Migração
 TIPO_SERVICO_ID = 11  # Autorização de Residência (Outras Hipóteses)
 UNIDADE_ID = 13  # PAE/DPF/CAS/SP - Viracopos
