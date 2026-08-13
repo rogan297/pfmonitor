@@ -11,6 +11,7 @@ import time
 import datetime
 import subprocess
 import argparse
+import socket
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 from playwright.async_api import async_playwright, TimeoutError as PwTimeout
@@ -60,7 +61,7 @@ def notify(msg, urgent=True):
 def api_get(path):
     try:
         req = Request(f"{BASE_URL}/{path}", headers={"Accept": "application/json"})
-        with urlopen(req, timeout=15) as r:
+        with urlopen(req, timeout=30) as r:
             body = r.read().decode()
             if not body:
                 return None
@@ -68,7 +69,7 @@ def api_get(path):
                 return json.loads(body) if body else None
             except json.JSONDecodeError:
                 return body
-    except (HTTPError, URLError):
+    except (HTTPError, URLError, socket.timeout, TimeoutError, OSError):
         return None
 
 def check_api():

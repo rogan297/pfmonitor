@@ -9,6 +9,7 @@ import json
 import time
 import sys
 import os
+import socket
 import subprocess
 import datetime
 import argparse
@@ -39,7 +40,7 @@ def api_get(path):
     url = f"{BASE_URL}/{path}"
     req = Request(url, headers={"Accept": "application/json"})
     try:
-        with urlopen(req, timeout=15) as resp:
+        with urlopen(req, timeout=30) as resp:
             body = resp.read().decode()
             if not body:
                 return None
@@ -47,9 +48,7 @@ def api_get(path):
                 return json.loads(body) if body else None
             except json.JSONDecodeError:
                 return body
-    except HTTPError as e:
-        return None
-    except URLError:
+    except (HTTPError, URLError, socket.timeout, TimeoutError, OSError):
         return None
 
 def consultar_requerente():
